@@ -40,3 +40,4 @@ gem 'spring',        group: :development
 
 gem 'puma'
 gem 'faraday'
+gem 'pry-rails'
