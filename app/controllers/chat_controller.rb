@@ -4,7 +4,6 @@ class ChatController < ApplicationController
   @@streams ||= []
 
   def index
-    Search.new.iqon_item
   end
 
   def stream
