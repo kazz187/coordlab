@@ -38,6 +38,24 @@ class ChatController < ApplicationController
     render text: nil
   end
 
+  def coord
+    @@streams.each do |stream|
+      j = {
+        type: 'coordinate',
+        attr: {
+          type: params[:type],
+          item_id: params[:item_id],
+          item_img: params[:item_img],
+          x: params[:x],
+          y: params[:y]
+        }
+      }.to_json
+
+      stream.write("data: #{j}\n\n") rescue nil
+    end
+    render text: nil
+  end
+
   def search
     case(params[:resource])
     when 'iqon_item'
