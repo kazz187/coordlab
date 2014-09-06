@@ -1,8 +1,13 @@
 <form action='search/iqon_item'>
-  <input type='hidden' name='category_id1' value='10'>
-  <input type='hidden' name='category_id2' value='17007'>
-  <input type='submit' value='submit'>
+  <select name='category_id1'>
+      <% @category_id1.each do |key, value| %>
+          <option value="<%= key %>"><%= value %></option>
+      <% end %>
+  </select>
+
+  <input type='submit' value='IQONのアイテム検索'>
 </form>
+
 <div class='api_result'>
   <% unless @api_result.nil? %>
     <% @api_result.each do |key, value| %>
