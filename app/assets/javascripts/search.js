@@ -109,8 +109,13 @@ var get_categoryid2 = function(category_id1) {
 $(function() {
   $("#search_iqon_item").on('click', function() {
     var category_id1 = $('select[name="category_id1"]').val();
+    var category_id2 = $('select[name="category_id2"]').val();
 
     var endpoint = '/chat/search/iqon_item?category_id1' + '=' + category_id1;
+    if (category_id2 != '') {
+      endpoint +='&category_id2=' + category_id2;
+    }
+
     $.get(endpoint, function() {
     }).done(function(data) {
       $('#search_items').html('');
@@ -129,7 +134,7 @@ $(function() {
     });
   });
 
-  $("#category_select > select").change(function() {
+  $("#category_id1").change(function() {
     $('#category_id2 > option').remove();
     var category_id1 = $('select[name="category_id1"]').val();
     var subcategory_items = get_categoryid2(category_id1);
