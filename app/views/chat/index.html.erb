@@ -1,9 +1,15 @@
 <div class="coord-outer">
-  <%= render 'chat/inc/coord' %>
-  <%= render 'chat/inc/search' %>
+  <div class="coord-inner">
+    <%= render 'chat/inc/coord' %>
+  </div>
+  <div class="search-inner">
+    <%= render 'chat/inc/search' %>
+  </div>
 </div>
 <div class="chat-outer">
-  <%= render 'chat/inc/chat' %>
+  <div class="chat-inner">
+    <%= render 'chat/inc/chat' %>
+  </div>
 </div>
 <script>
     var sse = new EventSource("/chat/stream");
