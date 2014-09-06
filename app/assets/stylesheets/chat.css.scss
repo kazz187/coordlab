@@ -38,13 +38,13 @@ div#search_items {
   height: calc(100% - #{$search_form_height});
   overflow-y: scroll;
   div.item {
+    float: left;
     img {
       display: block;
       border: 1px #eee solid;
       width: 100px;
       height: 100px;
       margin: 5px;
-      float: left;
     }
   }
 }
