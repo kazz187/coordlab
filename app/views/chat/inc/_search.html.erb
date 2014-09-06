@@ -1,3 +1,4 @@
+<h2>アイテムを検索</h2>
 <select name='category_id1'>
   <% @category_id1.each do |key, value| %>
     <option value="<%= key %>"><%= value %></option>
@@ -16,6 +17,7 @@
     var endpoint = '/chat/search/iqon_item?category_id1' + '=' + category_id1;
     $.get(endpoint, function() {
     }).done(function(data) {
+      $('#search_items').html('');
       for(var item in data['results']) {
         var item_image = data['results'][item].images.s_image;
         var item = $('<div class="item"><img src="' + item_image + '" /></div>');

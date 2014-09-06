@@ -9,22 +9,43 @@
   border-radius: $radius;
 }
 
+$search_form_height: 30px;
 $message_form_height: 30px;
-$message_border_color: #f1f1f1;
+$border_color: #f1f1f1;
 
 div.coord-outer {
   width: 800px;
   height: 100%;
   float: left;
+  border-right: 1px $border_color solid;
+  box-sizing: border-box;
   div.coord-inner {
     width: 100%;
     height: 60%;
-    background-color: red;
+    border-bottom: 1px $border_color solid;
+    box-sizing: border-box;
+    padding: 5px;
   }
   div.search-inner {
     width: 100%;
     height: 40%;
-    background-color: green;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+}
+
+div#search_items {
+  height: calc(100% - #{$search_form_height});
+  overflow-y: scroll;
+  div.item {
+    img {
+      display: block;
+      border: 1px #eee solid;
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      float: left;
+    }
   }
 }
 
@@ -37,6 +58,8 @@ div.chat-outer {
     height: 100%;
     position: relative;
   }
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 div.messages {
@@ -46,7 +69,7 @@ div.messages {
     li {
       display: block;
       clear: both;
-      border-bottom: 1px $message_border_color solid;
+      border-bottom: 1px $border_color solid;
       padding: 5px;
       overflow-y: auto;
       img.icon {
@@ -58,13 +81,13 @@ div.messages {
         margin: 0 5px 0 0;
       }
       div.name {
-        width: 230px;
+        width: 220px;
         float: right;
         margin: 0 5px 0 0;
         font-weight: bold;
       }
       div.message {
-        width: 230px;
+        width: 220px;
         float: right;
         margin: 0 5px 5px 0;
       }
@@ -77,4 +100,4 @@ div.message-form {
   height: $message_form_height;
   position: absolute;
   bottom: 0;
- }
+}
