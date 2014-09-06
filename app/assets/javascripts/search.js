@@ -110,24 +110,21 @@ var set_items = function(data) {
   $('#search_items').html('');
   for(var item in data['results']) {
     var item_obj = data['results'][item];
-    var item_div = create_item_div(item_obj);
+
+    // コーデAPIのとき
+    if (item_obj.set_id) {
+      var item_div = create_item_set_div(item_obj);
+    } else {
+      var item_div = create_item_div(item_obj);
+    }
     $("#search_items").append(item_div);
   }
 }
 
 var create_item_div = function(item_obj) {
     var item_image = item_obj.images.s_image;
+    var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
 
-    if (item_obj.set_id) {
-      var item_div = $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
-      item_div.on('dblclick', function(e) {
-        var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
-        $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function() {
-        });
-      });
-    } else {
-      var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
-    }
     item_div.draggable({
         cursor: "move",
         refreshPositions: true,
@@ -137,6 +134,19 @@ var create_item_div = function(item_obj) {
     });
     return item_div;
 };
+
+var create_item_set_div = function(item_obj) {
+    var item_image = item_obj.images.s_image;
+
+    var item_div = $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
+    item_div.on('dblclick', function(e) {
+      var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
+      $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function() {
+      });
+    });
+
+    return item_div;
+}
 
 $(function() {
   $("#search_iqon_item").on('click', function() {
