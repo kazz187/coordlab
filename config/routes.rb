@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'chat#index'
   get 'chat/index'
   get 'chat/stream'
   post 'chat/message'
