@@ -17,6 +17,16 @@ class Search < ActiveRecord::Base
     JSON.parse(r.body)
   end
 
+  def iqon_set_item_detail(options = {})
+    ret = []
+    iqon_set_detail(options)['results'].each do |r|
+      r['layouts'].each do |layout|
+        ret.push(iqon_item({item_id: layout['id']}))
+      end
+    end
+    ret
+  end
+
   def iqon_endpoint
     Faraday.new('http://api.thefashionhack.com')
   end
