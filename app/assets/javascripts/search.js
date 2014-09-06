@@ -109,10 +109,19 @@ var get_categoryid2 = function(category_id1) {
 var set_items = function(data) {
   $('#search_items').html('');
   for(var item in data['results']) {
-    var item_image = data['results'][item].images.s_image;
-    if (data['results'][item].set_id) {
+    var item_obj = data['results'][item];
+    var item_div = create_item_div(item_obj);
+    $("#search_items").append(item_div);
+  }
+}
+
+var create_item_div = function(item_obj) {
+    var item_image = item_obj.images.s_image;
+    var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
+
+    if (item_obj.set_id) {
       var item_div =
-        $('<div class="item"><img class="set_item" data-setid="' + data['results'][item].set_id + '" src="' + item_image + '" /></div>');
+        $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
       item_div.on('dblclick', function(e) {
         var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
         $.get('/chat/search/iqon_set_detail', function() {
@@ -122,15 +131,14 @@ var set_items = function(data) {
       var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
     }
     item_div.draggable({
-      cursor: "move",
-      refreshPositions: true,
-      helper: 'clone',
-      opacity: 0.45,
-      revert: 'invalid'
+        cursor: "move",
+        refreshPositions: true,
+        helper: 'clone',
+        opacity: 0.45,
+        revert: 'invalid'
     });
-    $("#search_items").append(item_div);
-  }
-}
+    return item_div;
+};
 
 $(function() {
   $("#search_iqon_item").on('click', function() {
@@ -166,3 +174,4 @@ $(function() {
     });
   });
 });
+
