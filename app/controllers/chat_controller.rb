@@ -42,6 +42,8 @@ class ChatController < ApplicationController
     case(params[:resource])
     when 'iqon_item'
       api_result = Search.new.iqon_item(params)
+    when 'iqon_set'
+      api_result = Search.new.iqon_set
     end
 
     render json: api_result
