@@ -143,7 +143,6 @@ var create_item_set_div = function(item_obj) {
       var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
       $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function(data) {
         $('#search_items').html('');
-        var item_div = {};
         for (var i = 0; i < data.length; i ++) {
           for(var item in data[i]) {
             var item_obj = data[i]['results'][0];

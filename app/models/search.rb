@@ -18,15 +18,10 @@ class Search < ActiveRecord::Base
   end
 
   def iqon_set_item_detail(options = {})
-    ret = []
-    binding.pry
-    iqon_set_detail(options)['results'].each do |r|
-      r['layouts'].each do |layout|
-        ret.push(iqon_item({item_id: layout['id']}))
-      end
+    iqon_set_detail(options)['results'].inject([]) do |ret, detail|
+      detail['layouts'].each { |layout| ret.push(iqon_item({item_id: layout['id']}))}
+      ret
     end
-    binding.pry
-    ret
   end
 
   def iqon_endpoint
