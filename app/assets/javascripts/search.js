@@ -120,15 +120,8 @@ $(function() {
     }).done(function(data) {
       $('#search_items').html('');
       for(var item in data['results']) {
-        var item_image = data['results'][item].images.s_image;
-        var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
-        item_div.draggable({
-          cursor: "move",
-          refreshPositions: true,
-          helper: 'clone',
-          opacity: 0.45,
-          revert: 'invalid'
-        });
+        var item_obj = data['results'][item];
+        var item_div = create_item_div(item_obj);
         $("#search_items").append(item_div);
       }
     });
@@ -145,3 +138,16 @@ $(function() {
     $("#category_id2").append(element);
   });
 });
+
+var create_item_div = function(item_obj) {
+  var item_image = item_obj.images.s_image;
+  var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
+  item_div.draggable({
+    cursor: "move",
+    refreshPositions: true,
+    helper: 'clone',
+    opacity: 0.45,
+    revert: 'invalid'
+  });
+  return item_div;
+};

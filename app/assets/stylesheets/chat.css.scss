@@ -25,6 +25,7 @@ div.coord-outer {
     border-bottom: 1px $border_color solid;
     box-sizing: border-box;
     padding: 5px;
+    overflow-y: scroll;
   }
   div.search-inner {
     width: 100%;
@@ -39,7 +40,11 @@ div#coord_box {
   height: 400px;
   border: 1px #eee solid;
   margin: 5px auto;
-
+  position: relative;
+  img.coord_item {
+    display: block;
+    position: absolute;
+  }
 }
 
 div#search_items {
