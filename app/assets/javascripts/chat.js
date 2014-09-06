@@ -4,7 +4,6 @@ var chat = function(attr) {
   var message = '<div class="message">' + attr.comment + '</div>';
   var chat_area = $("#chat_area");
   chat_area.append('<li>' + icon + name + message + '</li>');
-  console.log(chat_area[0].scrollHeight);
   var chat_div = $('#messages');
   chat_div.animate({scrollTop: chat_div[0].scrollHeight}, 'fast');
 }
