@@ -1,6 +1,10 @@
-<ul id="chat_area">
-</ul>
-<%= form_tag "/chat/message", :remote => true do %>
-    <%= text_field_tag :comment %>
-    <%= submit_tag "send" %>
-<% end %>
+<div class="messages">
+  <ul id="chat_area">
+  </ul>
+</div>
+<div class="message-form">
+  <form accept-charset="UTF-8" action="/chat/message" data-remote="true" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+    <input id="comment" name="comment" type="text">
+    <input name="commit" type="submit" value="send">
+  </form>
+</div>
