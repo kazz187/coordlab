@@ -117,18 +117,16 @@ var set_items = function(data) {
 
 var create_item_div = function(item_obj) {
     var item_image = item_obj.images.s_image;
-    var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
 
     if (item_obj.set_id) {
-      var item_div =
-        $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
+      var item_div = $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
       item_div.on('dblclick', function(e) {
         var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
-        $.get('/chat/search/iqon_set_detail', function() {
+        $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function() {
         });
       });
     } else {
-      var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
+      var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
     }
     item_div.draggable({
         cursor: "move",

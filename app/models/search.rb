@@ -12,6 +12,11 @@ class Search < ActiveRecord::Base
     JSON.parse(r.body)
   end
 
+  def iqon_set_detail(options = {})
+    r = iqon_endpoint.get("/sets/#{Parameter.new(options).to_s}")
+    JSON.parse(r.body)
+  end
+
   def iqon_endpoint
     Faraday.new('http://api.thefashionhack.com')
   end
