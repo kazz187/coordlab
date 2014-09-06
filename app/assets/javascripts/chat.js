@@ -49,8 +49,9 @@ $(function() {
       var base_offset = $('#coord_box').offset();
       var x = ui.position.left - base_offset.left;
       var y = ui.position.top - base_offset.top;
-      post_event('create', item_id, item_img, x, y);
-      //create_item(item_id, item_img, x, y);
+      if ($("#item_" + item_id).length == 0) {
+        post_event('create', item_id, item_img, x, y);
+      }
     }
   });
 });
