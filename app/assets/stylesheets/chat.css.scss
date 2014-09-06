@@ -34,6 +34,14 @@ div.coord-outer {
   }
 }
 
+div#coord_box {
+  width: 400px;
+  height: 400px;
+  border: 1px #eee solid;
+  margin: 5px auto;
+
+}
+
 div#search_items {
   height: calc(100% - #{$search_form_height});
   overflow-y: scroll;
