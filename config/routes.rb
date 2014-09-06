@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post 'chat/message'
   post 'chat/coord'
   get 'chat/search/:resource', to: 'chat#search'
+  get 'chat/user', to: 'chat#user'
 end

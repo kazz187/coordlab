@@ -56,6 +56,13 @@ class ChatController < ApplicationController
     render text: nil
   end
 
+  def user
+    render json: {
+      user: params[:twitter_name],
+      icon: Twitter.new.icon_url(params[:twitter_name])
+    }.to_json
+  end
+
   def search
     case(params[:resource])
     when 'iqon_item'
