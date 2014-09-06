@@ -14,6 +14,9 @@ var coordinate = function(attr) {
     case 'create':
       create_item(attr.item_id, attr.item_img, Number(attr.x), Number(attr.y));
       break;
+    case 'move':
+      move_item(attr.item_id, attr.item_img, Number(attr.x), Number(attr.y));
+      break;
     default:
       break;
   }
@@ -43,14 +46,21 @@ $(function() {
   });
   $('#coord_box').droppable({
     drop: function(ev, ui) {
-      var re = /s_item_([0-9]+)$/;
-      var item_id = re.exec(ui.draggable.prop('id'))[1];
-      var item_img = $('img', ui.draggable).prop('src');
+      var re = /(s_)?item_([0-9]+)$/;
+      var parsed = re.exec(ui.draggable.prop('id'));
+      var item_id = parsed[2];
       var base_offset = $('#coord_box').offset();
-      var x = ui.position.left - base_offset.left;
-      var y = ui.position.top - base_offset.top;
-      if ($("#item_" + item_id).length == 0) {
-        post_event('create', item_id, item_img, x, y);
+      var x = ui.offset.left - base_offset.left;
+      var y = ui.offset.top - base_offset.top;
+      var item_img = undefined;
+      if (parsed[1] == 's_') {
+        item_img = $('img', ui.draggable).prop('src');
+        if ($("#item_" + item_id).length == 0) {
+          post_event('create', item_id, item_img, x, y);
+        }
+      } else {
+        item_img = ui.draggable.prop('src');
+        post_event('move', item_id, item_img, x, y);
       }
     }
   });
@@ -60,7 +70,23 @@ var create_item = function(item_id, item_img, x, y) {
   var img = $('<img class="coord_item" id="item_' + item_id + '" src="' + item_img+ '" />');
   img.css('left', x);
   img.css('top', y);
+  img.draggable({
+    cursor: "move",
+    refreshPositions: true,
+    opacity: 0.45,
+    revert: 'invalid'
+  });
+  img.css('position', 'absolute');
   $('#coord_box').append(img);
+};
+var move_item = function(item_id, item_img, x, y) {
+  var img = $("#item_" + item_id);
+  if (img.length == 0) {
+    create_item(item_id, item_img, x, y);
+    return;
+  }
+  img.css('left', x);
+  img.css('top', y);
 };
 
 var post_event = function(event_type, item_id, item_img, x, y) {
