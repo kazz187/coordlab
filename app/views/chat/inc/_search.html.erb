@@ -1,18 +1,26 @@
-<form action='search/iqon_item'>
-  <select name='category_id1'>
-      <% @category_id1.each do |key, value| %>
-          <option value="<%= key %>"><%= value %></option>
-      <% end %>
-  </select>
-
-  <input type='submit' value='IQONのアイテム検索'>
-</form>
-
-<div class='api_result'>
-  <% unless @api_result.nil? %>
-    <% @api_result.each do |key, value| %>
-      <%= key %>
-      <%= value %>
-    <% end %>
+<select name='category_id1'>
+  <% @category_id1.each do |key, value| %>
+    <option value="<%= key %>"><%= value %></option>
   <% end %>
+</select>
+
+<input id='search_iqon_item' type='button' value='IQONのアイテム検索'>
+
+<div id='search_items'>
 </div>
+
+<script>
+  $("#search_iqon_item").on('click', function() {
+    var category_id1 = $('select[name="category_id1"]').val();
+
+    var endpoint = '/chat/search/iqon_item?category_id1' + '=' + category_id1;
+    $.get(endpoint, function() {
+    }).done(function(data) {
+      for(var item in data['results']) {
+        var item_image = data['results'][item].images.s_image;
+        var item = $('<div class="item"><img src="' + item_image + '" /></div>');
+        $("#search_items").append(item);
+      }
+    });
+  });
+</script>

@@ -32,10 +32,10 @@ class ChatController < ApplicationController
   def search
     case(params[:resource])
     when 'iqon_item'
-      @api_result = Search.new.iqon_item(params)
+      api_result = Search.new.iqon_item(params)
     end
 
-    render :index
+    render json: api_result
   end
 
   def set_default_val

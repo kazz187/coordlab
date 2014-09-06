@@ -1,5 +1,6 @@
 require 'faraday'
 require 'pry'
+require 'pp'
 class Search < ActiveRecord::Base
   def iqon_item(options = {})
     r = iqon_endpoint.get("/item/#{Parameter.new(options).to_s}")
