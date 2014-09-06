@@ -11,11 +11,3 @@
     <%= render 'chat/inc/chat' %>
   </div>
 </div>
-<script>
-    var sse = new EventSource("/chat/stream");
-    sse.onmessage = function(event) {
-        var message_li = document.createElement("li");
-        message_li.textContent = event.data;
-        document.getElementById("chat_area").appendChild(message_li);
-    };
-</script>

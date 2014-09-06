@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
 $message_form_height: 30px;
 
 div.coord-outer {
@@ -35,10 +42,33 @@ div.chat-outer {
 div.messages {
   height: calc(100% - #{$message_form_height});
   background-color: blueviolet;
+  overflow-y: scroll;
   ul#chat_area {
     li {
       display: block;
-
+      clear: both;
+      border-bottom: 1px #fafafa solid;
+      padding: 5px;
+      overflow-y: auto;
+      img.icon {
+        @include border-radius(5px);
+        display: block;
+        float: left;
+        width: 50px;
+        height: 50px;
+        margin: 0 5px 0 0;
+      }
+      div.name {
+        width: 230px;
+        float: right;
+        margin: 0 5px 0 0;
+        font-weight: bold;
+      }
+      div.message {
+        width: 230px;
+        float: right;
+        margin: 0 5px 5px 0;
+      }
     }
   }
 }
