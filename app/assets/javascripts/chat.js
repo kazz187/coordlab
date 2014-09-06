@@ -2,7 +2,11 @@ var chat = function(attr) {
   var icon = '<img class="icon" width="50" height="50" src="' + decodeURIComponent(attr.icon) + '"/>';
   var name = '<div class="name">' + attr.name + '</div>';
   var message = '<div class="message">' + attr.comment + '</div>';
-  $("#chat_area").append('<li>' + icon + name + message + '</li>');
+  var chat_area = $("#chat_area");
+  chat_area.append('<li>' + icon + name + message + '</li>');
+  console.log(chat_area[0].scrollHeight);
+  var chat_div = $('#messages');
+  chat_div.animate({scrollTop: chat_div[0].scrollHeight}, 'fast');
 }
 
 var coordinate = function(attr) {
