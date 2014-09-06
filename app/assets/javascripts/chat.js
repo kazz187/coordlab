@@ -27,7 +27,7 @@ sse.onmessage = function(event) {
 
 var get_categoryid2 = function(category_id1) {
   switch(category_id1) {
-    case 10:
+    case '10':
       return {
         10001: 'コート',
         10002: 'ジャケット',
@@ -35,7 +35,7 @@ var get_categoryid2 = function(category_id1) {
         10004: 'パーカー',
         10005: 'そのほか'
       };
-    case 11:
+    case '11':
       return {
         11001: 'ワンピース',
         11002: 'ブラウス',
@@ -46,14 +46,14 @@ var get_categoryid2 = function(category_id1) {
         11007: 'チュニック',
         11008: 'そのほか'
       };
-    case 12:
+    case '12':
       return {
         12001: 'スカート',
         12002: 'ロングスカート',
         12003: 'ロングパンツ',
         12004: 'ショートパンツ'
       };
-    case 13:
+    case '13':
       return {
         13001: 'パンプス',
         13002: 'スニーカー',
@@ -61,7 +61,7 @@ var get_categoryid2 = function(category_id1) {
         13004: 'ブーツ',
         13005: 'そのほか'
       };
-    case 14:
+    case '14':
       return {
         14001: 'ショルダー',
         14002: 'ボストン',
@@ -71,7 +71,7 @@ var get_categoryid2 = function(category_id1) {
         14006: 'クラッチ',
         14007: 'そのほか'
       };
-    case 15:
+    case '15':
       return {
         15001: 'ネックレス',
         15002: 'ピアス',
@@ -81,14 +81,14 @@ var get_categoryid2 = function(category_id1) {
         15006: 'ヘアアクセ',
         15007: 'そのほか'
       };
-    case 16:
+    case '16':
       return {
         16001: 'ニット帽',
         16002: 'ハット',
         16003: 'キャップ',
         16004: 'そのほか'
       };
-    case 17:
+    case '17':
       return {
         17001: 'サングラス',
         17002: 'メガネ',
@@ -101,25 +101,25 @@ var get_categoryid2 = function(category_id1) {
         17009: 'ポーチ・財布',
         17010: 'そのほか'
       };
-    case 18:
+    case '18':
       return {
         18001: 'ルームウェア',
         18002: 'ルームシューズ',
         18003: 'アンダーウェア',
         18004: 'そのほか'
       };
-    case 20:
+    case '20':
       return {
         20001: 'インテリア',
         20002: 'ステーショナリー',
         20003: 'そのほか'
       };
-    case 21:
+    case '21':
       return {
         21001: '水着',
         21002: '浴衣'
       };
-    case 22:
+    case '22':
       return {
         22001: 'テキスト',
         22002: 'フレーム',
@@ -128,6 +128,7 @@ var get_categoryid2 = function(category_id1) {
         22005: 'コラージュ素材'
       };
     default:
+      console.warn('undefined category_id1:' + category_id1);
       return {};
   }
 }
@@ -159,16 +160,16 @@ $(function() {
       }
     });
   });
-  });
 
   $("#category_select > select").change(function() {
     $('#category_id2 > option').remove();
-    var element = "<option value=''>サブカテゴリ未選択</option>";
     var category_id1 = $('select[name="category_id1"]').val();
     var subcategory_items = get_categoryid2(category_id1);
+    var element = '';
     for(item in subcategory_items) {
       element += '<option value="' + item + '">' + subcategory_items[item] + '</option>';
     }
     $("#category_id2").append(element);
   });
+
 });
