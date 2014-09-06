@@ -110,7 +110,17 @@ var set_items = function(data) {
   $('#search_items').html('');
   for(var item in data['results']) {
     var item_image = data['results'][item].images.s_image;
-    var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
+    if (data['results'][item].set_id) {
+      var item_div =
+        $('<div class="item"><img class="set_item" data-setid="' + data['results'][item].set_id + '" src="' + item_image + '" /></div>');
+      item_div.on('dblclick', function(e) {
+        var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
+        $.get('/chat/search/iqon_set_detail', function() {
+        });
+      });
+    } else {
+      var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
+    }
     item_div.draggable({
       cursor: "move",
       refreshPositions: true,
