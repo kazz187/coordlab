@@ -106,6 +106,28 @@ var get_categoryid2 = function(category_id1) {
   }
 }
 
+var set_items = function(data) {
+  $('#search_items').html('');
+  for(var item in data['results']) {
+    var item_obj = data['results'][item];
+    var item_div = create_item_div(item_obj);
+    $("#search_items").append(item_div);
+  }
+}
+
+var create_item_div = function(item_obj) {
+    var item_image = item_obj.images.s_image;
+    var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
+    item_div.draggable({
+        cursor: "move",
+        refreshPositions: true,
+        helper: 'clone',
+        opacity: 0.45,
+        revert: 'invalid'
+    });
+    return item_div;
+};
+
 $(function() {
   $("#search_iqon_item").on('click', function() {
     var category_id1 = $('select[name="category_id1"]').val();
@@ -113,17 +135,12 @@ $(function() {
 
     var endpoint = '/chat/search/iqon_item?category_id1' + '=' + category_id1;
     if (category_id2 != '') {
-      endpoint +='&category_id2=' + category_id2;
+      endpoint += '&category_id2=' + category_id2;
     }
 
     $.get(endpoint, function() {
     }).done(function(data) {
-      $('#search_items').html('');
-      for(var item in data['results']) {
-        var item_obj = data['results'][item];
-        var item_div = create_item_div(item_obj);
-        $("#search_items").append(item_div);
-      }
+      set_items(data);
     });
   });
 
@@ -137,17 +154,12 @@ $(function() {
     }
     $("#category_id2").append(element);
   });
+
+  $("#set_search").on('click', function() {
+    $.get('/chat/search/iqon_set', function() {
+    }).done(function(data) {
+      set_items(data);
+    });
+  });
 });
 
-var create_item_div = function(item_obj) {
-  var item_image = item_obj.images.s_image;
-  var item_div = $('<div id="s_item_' + item_obj.item_id + '" class="item"><img src="' + item_image + '" /></div>');
-  item_div.draggable({
-    cursor: "move",
-    refreshPositions: true,
-    helper: 'clone',
-    opacity: 0.45,
-    revert: 'invalid'
-  });
-  return item_div;
-};

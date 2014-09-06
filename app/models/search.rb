@@ -7,6 +7,11 @@ class Search < ActiveRecord::Base
     JSON.parse(r.body)
   end
 
+  def iqon_set
+    r = iqon_endpoint.get("/sets/?favorite=1")
+    JSON.parse(r.body)
+  end
+
   def iqon_endpoint
     Faraday.new('http://api.thefashionhack.com')
   end
