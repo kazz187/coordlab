@@ -19,6 +19,26 @@ var coordinate = function(attr) {
   }
 }
 
+var get_user = function() {
+  if (! document.cookie) {
+    return { username: '匿名ユーザー', usericon: encodeURIComponent('http://www.tajimabeef.net/image/voice/woman.jpg') };
+  }
+
+  var cookies = document.cookie.split(';');
+  var result = {};
+  for( var i = 0; i < cookies.length; i++ ) {
+    var cookie = cookies[i].split('=');
+    result[cookie[0].replace(/^\ /, '')] = cookie[1];
+  }
+  return result;
+}
+
+var append_chat_userinfo = function() {
+  var user = get_user();
+  $('div.message-form > form').append('<input name="icon" type="hidden" value="' + user.usericon + '">');
+  $('div.message-form > form').append('<input name="name" type="hidden" value="' + user.username + '">');
+}
+
 var sse = new EventSource("/chat/stream");
 sse.onmessage = function(event) {
     var root_event = JSON.parse(event.data);
@@ -37,10 +57,8 @@ sse.onmessage = function(event) {
 };
 
 $(function() {
-  $("#message_form_submit").on('click', function() {
-    var icon_url = encodeURIComponent('https://pbs.twimg.com/profile_images/592317390/twitter_400x400.png');
-    $('div.message-form > form').append('<input name="icon" type="hidden" value="' + icon_url + '">');
-  });
+  $("#message_form_submit").on('click', append_chat_userinfo);
+
   $('#coord_box').droppable({
     drop: function(ev, ui) {
       var re = /s_item_([0-9]+)$/;
@@ -58,7 +76,12 @@ $(function() {
   $("#login_submit").on('click', function() {
     $.get('/chat/user?twitter_name=' + $('#twitter_name').val(), function() {
     }).done(function(data) {
-      console.log(data);
+      document.cookie = 'username=' + data.user;
+      document.cookie = 'usericon=' + encodeURIComponent(data.icon);
+      append_chat_userinfo();
+      $("#comment").val(data.user + 'さんがログインしました');
+      $("#message_form_submit").submit();
+      $("#comment").val('');
     });
   });
 });
