@@ -63,7 +63,7 @@ class ChatController < ApplicationController
     when 'iqon_set'
       api_result = Search.new.iqon_set
     when 'iqon_set_detail'
-      api_result = Search.new.iqon_set_item_detail(params)
+      api_result = Search.new.iqon_set_detail(params)
     end
 
     render json: api_result

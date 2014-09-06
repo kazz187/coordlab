@@ -141,12 +141,7 @@ var create_item_set_div = function(item_obj) {
     var item_div = $('<div class="item"><img class="set_item" data-setid="' + item_obj.set_id + '" src="' + item_image + '" /></div>');
     item_div.on('dblclick', function(e) {
       var set_id = e.currentTarget.childNodes[0].getAttribute('data-setid');
-      $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function(data) {
-        set_items(data);
-//        $('#search_items').html('');
-//        var item_obj = data['results'][0];
-//        var item_div = create_item_div(item_obj);
-//        $("#search_items").append(item_div);
+      $.get('/chat/search/iqon_set_detail?set_id=' + set_id, function() {
       });
     });
 
