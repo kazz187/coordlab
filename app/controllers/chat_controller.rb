@@ -59,7 +59,7 @@ class ChatController < ApplicationController
   def user
     render json: {
       user: params[:twitter_name],
-      icon: 'https://pbs.twimg.com/profile_images/434591623058452480/S-x7J4lw_bigger.jpeg'
+      icon: Twitter.new.icon_url(params[:twitter_name])
     }.to_json
   end
 
