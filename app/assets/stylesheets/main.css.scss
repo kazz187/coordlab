@@ -43,6 +43,10 @@ html, body {
   min-height: 100%;
 }
 
+body {
+  background-image: url('/assets/wall.jpg');
+}
+
 header {
   @include background-grad($header_grad_from_color, $header_grad_to_color);
   height: 40px;
@@ -77,6 +81,7 @@ header {
   }
 }
 h2 {
+  color: #333;
   font-weight: bold;
 }
 div.context {
