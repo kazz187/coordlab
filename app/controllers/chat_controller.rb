@@ -1,10 +1,11 @@
+require 'pry'
+
 class ChatController < ApplicationController
   include ActionController::Live
 
   @@streams ||= []
 
   def index
-    Search.new.iqon_item
   end
 
   def stream
@@ -25,5 +26,14 @@ class ChatController < ApplicationController
       stream.write("data: #{params[:comment]}\n\n") rescue nil
     end
     render text: nil
+  end
+
+  def search
+    case(params[:resource])
+    when 'iqon_item'
+      r = Search.new.iqon_item(params)
+    end
+
+    render :index
   end
 end

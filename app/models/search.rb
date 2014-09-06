@@ -1,12 +1,7 @@
 require 'faraday'
 require 'pry'
-
 class Search < ActiveRecord::Base
   def iqon_item(options = {})
-    options = {
-      category_id1: 1,
-      category_id2: 2
-    }
     r = iqon_endpoint.get("/item#{Parameter.new(options).to_s}")
     JSON.parse(r.body)
   end
@@ -16,13 +11,16 @@ class Search < ActiveRecord::Base
   end
 
   class Parameter
+    INDEED_KEYS = %w(controller action resource).freeze
+
     def initialize options
       @options = options
+      INDEED_KEYS.each { |k| @options.delete(k) unless @options[k].nil? }
     end
 
     def to_s
       return '' if @options.nil?
-      r = @options.inject { |(k, v)| "&#{k.to_s}=#{v.to_s}" }
+      r = @options.inject("") { |r, (k, v)| "#{r}&#{k.to_s}=#{v.to_s}" }
       r.gsub(/^&/, '?')
     end
   end
