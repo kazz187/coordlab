@@ -56,6 +56,13 @@ class ChatController < ApplicationController
     render text: nil
   end
 
+  def user
+    render json: {
+      user: params[:twitter_name],
+      icon: 'https://pbs.twimg.com/profile_images/434591623058452480/S-x7J4lw_bigger.jpeg'
+    }.to_json
+  end
+
   def search
     case(params[:resource])
     when 'iqon_item'

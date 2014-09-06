@@ -54,6 +54,13 @@ $(function() {
       }
     }
   });
+
+  $("#login_submit").on('click', function() {
+    $.get('/chat/user?twitter_name=' + $('#twitter_name').val(), function() {
+    }).done(function(data) {
+      console.log(data);
+    });
+  });
 });
 
 var create_item = function(item_id, item_img, x, y) {
