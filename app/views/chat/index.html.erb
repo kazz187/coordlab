@@ -4,6 +4,7 @@
     <%= text_field_tag :comment %>
     <%= submit_tag "send" %>
 <% end %>
+<%= render 'chat/inc/search' %>
 <script>
     var sse = new EventSource("/chat/stream");
     sse.onmessage = function(event) {
