@@ -1,10 +1,10 @@
-<ul id="chat_area">
-</ul>
-<%= form_tag "/chat/message", :remote => true do %>
-    <%= text_field_tag :comment %>
-    <%= submit_tag "send" %>
-<% end %>
-<%= render 'chat/inc/search' %>
+<div class="coord-outer">
+  <%= render 'chat/inc/coord' %>
+  <%= render 'chat/inc/search' %>
+</div>
+<div class="chat-outer">
+  <%= render 'chat/inc/chat' %>
+</div>
 <script>
     var sse = new EventSource("/chat/stream");
     sse.onmessage = function(event) {
