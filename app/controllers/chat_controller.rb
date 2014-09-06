@@ -24,7 +24,16 @@ class ChatController < ApplicationController
 
   def message
     @@streams.each do |stream|
-      stream.write("data: #{params[:comment]}\n\n") rescue nil
+      j = {
+        type: 'chat',
+        attr: {
+          comment: params[:comment],
+          name: params[:name],
+          icon: params[:icon]
+        }
+      }.to_json
+
+      stream.write("data: #{j}\n\n") rescue nil
     end
     render text: nil
   end
