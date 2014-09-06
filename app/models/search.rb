@@ -2,7 +2,7 @@ require 'faraday'
 require 'pry'
 class Search < ActiveRecord::Base
   def iqon_item(options = {})
-    r = iqon_endpoint.get("/item#{Parameter.new(options).to_s}")
+    r = iqon_endpoint.get("/item/#{Parameter.new(options).to_s}")
     JSON.parse(r.body)
   end
 

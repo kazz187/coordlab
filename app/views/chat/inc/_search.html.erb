@@ -3,3 +3,11 @@
   <input type='hidden' name='category_id2' value='17007'>
   <input type='submit' value='submit'>
 </form>
+<div class='api_result'>
+  <% unless @api_result.nil? %>
+    <% @api_result.each do |key, value| %>
+      <%= key %>
+      <%= value %>
+    <% end %>
+  <% end %>
+</div>

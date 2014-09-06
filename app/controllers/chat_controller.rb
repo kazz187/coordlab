@@ -31,7 +31,7 @@ class ChatController < ApplicationController
   def search
     case(params[:resource])
     when 'iqon_item'
-      r = Search.new.iqon_item(params)
+      @api_result = Search.new.iqon_item(params)
     end
 
     render :index
