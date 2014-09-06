@@ -44,7 +44,7 @@ html, body {
 }
 
 body {
-  background-image: url('/assets/wall.jpg');
+  background-image: asset-url("wall.jpg", image);
 }
 
 header {
@@ -71,7 +71,7 @@ header {
       height: 100%;
       text-indent: -999px;
       white-space: nowrap;
-      background-image: url("/assets/coordlab.png");
+      background-image: asset-url("coordlab.png", image);
       background-size: 160px 40px;
       background-repeat: no-repeat;
     }
