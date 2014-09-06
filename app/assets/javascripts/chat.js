@@ -147,10 +147,18 @@ $(function() {
       $('#search_items').html('');
       for(var item in data['results']) {
         var item_image = data['results'][item].images.s_image;
-        var item = $('<div class="item"><img src="' + item_image + '" /></div>');
-        $("#search_items").append(item);
+        var item_div = $('<div class="item"><img src="' + item_image + '" /></div>');
+        item_div.draggable({
+          cursor: "move",
+          refreshPositions: true,
+          helper: 'clone',
+          opacity: 0.45,
+          revert: 'invalid'
+        });
+        $("#search_items").append(item_div);
       }
     });
+  });
   });
 
   $("#category_select > select").change(function() {
