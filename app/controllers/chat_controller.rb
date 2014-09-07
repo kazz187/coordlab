@@ -18,7 +18,7 @@ class ChatController < ApplicationController
     @@streams.push(response.stream)
     loop do
       response.stream.write(":ping \n\n")
-      sleep 15
+      sleep 5
     end
   rescue IOError
   ensure
