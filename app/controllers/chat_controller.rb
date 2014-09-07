@@ -6,10 +6,11 @@ class ChatController < ApplicationController
 
   @@streams ||= []
   @@messages ||= []
-  @@coords ||= []
+  @@coords ||= {}
 
   def index
     @messages = @@messages
+    @coords = @@coords
   end
 
   def stream
@@ -43,6 +44,18 @@ class ChatController < ApplicationController
   end
 
   def coord
+    if params[:type] == 'create'
+      @@coords[params[:item_id]] = {
+          item_id: params[:item_id],
+          item_img: params[:item_img],
+          x: params[:x],
+          y: params[:y]
+      }
+    elsif params[:type] == 'move'
+      @@coords[params[:item_id]][:x] = params[:x]
+      @@coords[params[:item_id]][:y] = params[:y]
+    end
+
     @@streams.each do |stream|
       j = {
         type: 'coordinate',

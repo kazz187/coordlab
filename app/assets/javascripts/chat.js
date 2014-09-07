@@ -93,6 +93,10 @@ $(function() {
       $("#comment").val('');
     });
   });
+  for (var id in coords_info) {
+    var coord = coords_info[id]
+    create_item(coord['item_id'], coord['item_img'], Number(coord['x']), Number(coord['y']));
+  }
 });
 
 var create_item = function(item_id, item_img, x, y) {
