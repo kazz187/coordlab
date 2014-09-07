@@ -97,6 +97,11 @@ $(function() {
     var coord = coords_info[id]
     create_item(coord['item_id'], coord['item_img'], Number(coord['x']), Number(coord['y']));
   }
+
+  $('#message_form').on('ajax:success', function() {
+    $('#comment').val('');
+
+  });
 });
 
 var create_item = function(item_id, item_img, x, y) {
