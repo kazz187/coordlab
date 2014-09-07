@@ -5,8 +5,11 @@ class ChatController < ApplicationController
   before_filter :set_default_val
 
   @@streams ||= []
+  @@messages ||= []
+  @@coords ||= []
 
   def index
+    @messages = @@messages
   end
 
   def stream
@@ -23,16 +26,17 @@ class ChatController < ApplicationController
   end
 
   def message
-    @@streams.each do |stream|
-      j = {
+    attribute = {
+        comment: params[:comment],
+        name: params[:name],
+        icon: params[:icon]
+    }
+    @@messages << attribute
+    j = {
         type: 'chat',
-        attr: {
-          comment: params[:comment],
-          name: params[:name],
-          icon: params[:icon]
-        }
-      }.to_json
-
+        attr: attribute
+    }.to_json
+    @@streams.each do |stream|
       stream.write("data: #{j}\n\n") rescue nil
     end
     render text: nil
