@@ -28,7 +28,7 @@ class ChatController < ApplicationController
 
   def message
     attribute = {
-        comment: params[:comment],
+        comment: ERB::Util.html_escape(params[:comment]),
         name: params[:name],
         icon: params[:icon]
     }
